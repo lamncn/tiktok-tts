@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIKTOK TTS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+    <h1 class="text-3xl font-bold mb-4">Text to Speech Converter</h1>
+    <div class="w-full max-w-sm">
+        <label for="textInput" class="block mb-2">Text:</label>
+        <input type="text" id="textInput" class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:border-blue-500">
+        <label for="voiceSelect" class="block mb-2">Voice:</label>
+        <select id="voiceSelect" onchange="toggleConvertButton()" class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:border-blue-500">
+            <option selected="" disabled="" hidden="" value="none">Select a voice</option>
+            <option disabled="" class="bold">English US</option>
+            <option value="en_us_001">Female</option>
+            <option value="en_us_006">Male 1</option>
+            <option value="en_us_007">Male 2</option>
+            <option value="en_us_009">Male 3</option>
+            <option value="en_us_010">Male 4</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">English UK</option>
+            <option value="en_uk_001">Male 1</option>
+            <option value="en_uk_003">Male 2</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">English AU</option>
+            <option value="en_au_001">Female</option>
+            <option value="en_au_002">Male</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">French</option>
+            <option value="fr_001">Male 1</option>
+            <option value="fr_002">Male 2</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">German</option>
+            <option value="de_001">Female</option>
+            <option value="de_002">Male</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Spanish</option>
+            <option value="es_002">Male</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Spanish MX</option>
+            <option value="es_mx_002">Male 1</option>
+            <option value="es_male_m3">Male 2</option>
+            <option value="es_female_f6">Female 1</option>
+            <option value="es_female_fp1">Female 2</option>
+            <option value="es_mx_female_supermom">Female 3</option>
+            <option value="es_mx_male_transformer">Optimus Prime (Transformers)</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Portuguese BR</option>
+            <option value="br_001">Female 1</option>
+            <option value="br_003">Female 2</option>
+            <option value="br_004">Female 3</option>
+            <option value="br_005">Male</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Indonesian</option>
+            <option value="id_001">Female</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Japanese</option>
+            <option value="jp_001">Female 1</option>
+            <option value="jp_003">Female 2</option>
+            <option value="jp_005">Female 3</option>
+            <option value="jp_006">Male</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Korean</option>
+            <option value="kr_002">Male 1</option>
+            <option value="kr_004">Male 2</option>
+            <option value="kr_003">Female</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Characters</option>
+            <option value="en_us_ghostface">Ghostface (Scream)</option>
+            <option value="en_us_chewbacca">Chewbacca (Star Wars)</option>
+            <option value="en_us_c3po">C3PO (Star Wars)</option>
+            <option value="en_us_stitch">Stitch (Lilo &amp; Stitch)</option>
+            <option value="en_us_stormtrooper">Stormtrooper (Star Wars)</option>
+            <option value="en_us_rocket">Rocket (Guardians of the Galaxy)</option>
+            <option disabled=""></option>
+    
+            <option disabled="" class="bold">Singing</option>
+            <option value="en_female_f08_salut_damour">Alto</option>
+            <option value="en_male_m03_lobby">Tenor</option>
+            <option value="en_male_m03_sunshine_soon">Sunshine Soon</option>
+            <option value="en_female_f08_warmy_breeze">Warmy Breeze</option>
+            <option value="en_female_ht_f08_glorious">Glorious</option>
+            <option value="en_male_sing_funny_it_goes_up">It Goes Up</option>
+            <option value="en_male_m2_xhxs_m03_silly">Chipmunk</option>
+            <option value="en_female_ht_f08_wonderful_world">Dramatic</option>
+        </select>
+        
+        <button id="convertButton" onclick="convertTextToSpeech()" class="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-md cursor-pointer focus:outline-none focus:bg-gray-600">Convert</button>
+    </div>
+    <div id="output" class="mt-4"></div>
+
+    <script>
+        function toggleConvertButton() {
+            const voiceSelect = document.getElementById('voiceSelect');
+            const convertButton = document.getElementById('convertButton');
+            if (voiceSelect.value !== 'none') {
+                convertButton.disabled = false;
+                convertButton.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                convertButton.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            } else {
+                convertButton.disabled = true;
+                convertButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                convertButton.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            }
+        }
+
+        function convertTextToSpeech() {
+            const text = document.getElementById('textInput').value;
+            const voice = document.getElementById('voiceSelect').value;
+
+            const url = 'https://tiktok-tts.weilnet.workers.dev/api/generation';
+            const payload = {
+                text: text,
+                voice: voice
+            };
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': '*/*',
+                        'Accept-Language': 'en-US,en;q=0.9'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const audio_data_base64 = data.data;
+                    const audio_data = atob(audio_data_base64);
+
+                    // Convert binary string to Uint8Array
+                    const uint8Array = new Uint8Array(audio_data.length);
+                    for (let i = 0; i < audio_data.length; i++) {
+                        uint8Array[i] = audio_data.charCodeAt(i);
+                    }
+
+                    // Create Blob from Uint8Array
+                    const blob = new Blob([uint8Array], {
+                        type: 'audio/mp3'
+                    });
+                    const audioUrl = URL.createObjectURL(blob);
+
+                    // Create audio element and set its source
+                    const audioElement = document.createElement('audio');
+                    audioElement.src = audioUrl;
+                    audioElement.controls = true;
+
+                    // Append audio element to output div
+                    const outputDiv = document.getElementById('output');
+                    outputDiv.innerHTML = '';
+                    outputDiv.appendChild(audioElement);
+
+                    audioElement.play();
+
+                    // Set button background color based on voice selection
+                    const convertButton = document.getElementById('convertButton');
+                    if (voice !== 'none') {
+                        convertButton.style.backgroundColor = '#4299e1'; // Blue color
+                    } else {
+                        convertButton.style.backgroundColor = '#a0aec0'; // Grey color
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+
+</html>
