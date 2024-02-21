@@ -9,8 +9,8 @@
 </head>
 
 <body class="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
-    <h1 class="text-3xl font-bold mb-4">Text to Speech Converter</h1>
-    <div class="w-full max-w-sm">
+    <div class="w-full max-w-sm bg-white rounded-lg shadow-lg p-6 custom-container">
+        <h1 class="text-2xl font-bold mb-4"; style="font-size: 1.72rem">Text to Speech Converter</h1>
         <label for="textInput" class="block mb-2">Text:</label>
         <input type="text" id="textInput" class="w-full border border-gray-300 rounded-md px-4 py-2 mb-4 focus:outline-none focus:border-blue-500">
         <label for="voiceSelect" class="block mb-2">Voice:</label>
@@ -102,6 +102,18 @@
         </select>
         
         <button id="convertButton" onclick="convertTextToSpeech()" class="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-md cursor-pointer focus:outline-none focus:bg-gray-600">Convert</button>
+        
+        <div id="downloadButtonContainer" class="hidden">
+            <button id="downloadButton" onclick="downloadAudio()" class="w-8 h-8 bg-gray-500 text-white font-bold rounded-md cursor-pointer focus:outline-none">
+                <!-- Insert the SVG code here -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 24 24" fill="none">
+                    <rect width="24" height="24" fill="white"/>
+                    <path d="M5 12V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 3L12 15M12 15L16 11M12 15L8 11" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
     </div>
     <div id="output" class="mt-4"></div>
 
@@ -175,8 +187,19 @@
                     } else {
                         convertButton.style.backgroundColor = '#a0aec0'; // Grey color
                     }
+
+                    document.getElementById('downloadButtonContainer').classList.remove('hidden');
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function downloadAudio() {
+            const audioElement = document.querySelector('audio');
+            const audioUrl = audioElement.src;
+            const link = document.createElement('a');
+            link.href = audioUrl;
+            link.download = 'audio.mp3';
+            link.click();
         }
     </script>
 </body>
