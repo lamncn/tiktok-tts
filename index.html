@@ -8,30 +8,29 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
     <style>
-        /* Add this CSS */
         .button-container {
             position: relative;
         }
     
         #downloadButtonContainer {
-            opacity: 0;
+            height: 2.5rem;
             transition: opacity 0.5s ease;
             position: absolute;
-            top: 0;
+            top: 50%; /* Align the container vertically at 50% */
+            transform: translateY(-50%); /* Move the container up by half of its height */
             right: 0;
         }
-    
+
         #downloadButton {
             opacity: 0;
             transform: scale(0.7);
             transition: opacity 0.5s ease, transform 0.5s ease;
-            /* Square button with size equal to the height of convert button */
-            width: 3rem; /* Adjust size as needed */
-            height: var(--convert-button-height); /* Dynamic height based on convert button */
             background-color: #4299e1; /* Blue color */
             border-radius: 0.375rem; /* Match convert button */
+            width: 2.5rem; /* Set width to match the height */
+            height: 2.5rem; /* Set height to match the height */
         }
-    
+
         #downloadButton svg {
             fill: white; /* White icon for better contrast */
         }
@@ -46,7 +45,7 @@
         }
     
         #convertButton:focus {
-            width: calc(100% - 2.5rem);
+            width: calc(100% - 3.5rem);
         }
     </style>
 </head>
@@ -148,7 +147,7 @@
             <button id="convertButton" onclick="convertTextToSpeech()" class="w-full bg-gray-500 text-white font-bold py-2 px-4 rounded-md cursor-pointer focus:outline-none focus:bg-gray-600 transition-all duration-500">Convert</button>
         
             <div id="downloadButtonContainer" class="h-full flex items-center">
-                <button id="downloadButton" onclick="downloadAudio()" class="w-8 h-8 bg-gray-500 text-white font-bold rounded-md cursor-pointer focus:outline-none transition-all duration-500">
+                <button id="downloadButton" onclick="downloadAudio()" class="bg-gray-500 text-white font-bold rounded-md cursor-pointer focus:outline-none transition-all duration-500 square-button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path fill="none" d="M5 12V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
                         <path fill="none" d="M12 3L12 15M12 15L16 11M12 15L8 11" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
