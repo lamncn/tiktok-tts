@@ -29,10 +29,16 @@
             border-radius: 0.375rem; /* Match convert button */
             width: 2.5rem; /* Set width to match the height */
             height: 2.5rem; /* Set height to match the height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        #downloadButton svg {
-            fill: white; /* White icon for better contrast */
+        #downloadButton svg path {
+            stroke: white;
+            stroke-width: 1.5px; /* Adjust the width as needed */
+            stroke-linecap: round; /* Adjust linecap as needed */
+            stroke-linejoin: round; /* Adjust linejoin as needed */
         }
     
         #convertButton:focus + #downloadButtonContainer {
@@ -47,6 +53,11 @@
         #convertButton:focus {
             width: calc(100% - 3.5rem);
         }
+
+        #output audio {
+        display: block;
+        margin: 0 auto;
+    }
     </style>
 </head>
 
@@ -148,15 +159,16 @@
         
             <div id="downloadButtonContainer" class="h-full flex items-center">
                 <button id="downloadButton" onclick="downloadAudio()" class="bg-gray-500 text-white font-bold rounded-md cursor-pointer focus:outline-none transition-all duration-500 square-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="none" d="M5 12V18C5 18.5523 5.44772 19 6 19H18C18.5523 19 19 18.5523 19 18V12" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
                         <path fill="none" d="M12 3L12 15M12 15L16 11M12 15L8 11" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    </svg>                    
                 </button>
             </div>
         </div>
+        <div id="output" class="mt-4"></div>
     </div>
-    <div id="output" class="mt-4"></div>
+    
 
     <script>
         function toggleConvertButton() {
