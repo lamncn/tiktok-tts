@@ -16,8 +16,8 @@
             height: 2.5rem;
             transition: opacity 0.5s ease;
             position: absolute;
-            top: 50%; /* Align the container vertically at 50% */
-            transform: translateY(-50%); /* Move the container up by half of its height */
+            top: 50%;
+            transform: translateY(-50%);
             right: 0;
         }
 
@@ -25,10 +25,10 @@
             opacity: 0;
             transform: scale(0.7);
             transition: opacity 0.5s ease, transform 0.5s ease;
-            background-color: #4299e1; /* Blue color */
-            border-radius: 0.375rem; /* Match convert button */
-            width: 2.5rem; /* Set width to match the height */
-            height: 2.5rem; /* Set height to match the height */
+            background-color: #4299e1;
+            border-radius: 0.375rem;
+            width: 2.5rem;
+            height: 2.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,9 +36,9 @@
 
         #downloadButton svg path {
             stroke: white;
-            stroke-width: 1.5px; /* Adjust the width as needed */
-            stroke-linecap: round; /* Adjust linecap as needed */
-            stroke-linejoin: round; /* Adjust linejoin as needed */
+            stroke-width: 1.5px;
+            stroke-linecap: round; 
+            stroke-linejoin: round;
         }
     
         #convertButton:focus + #downloadButtonContainer {
@@ -233,7 +233,6 @@
 
                     audioElement.play();
 
-                    // Set button background color based on voice selection
                     const convertButton = document.getElementById('convertButton');
                     if (voice !== 'none') {
                         convertButton.style.backgroundColor = '#4299e1'; // Blue color
